@@ -1,1144 +1,1232 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kobi | اسماعيل</title>
-    <!-- أيقونات FontAwesome للمطورين -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Kobi | اسماعيل</title>
+  <!-- أيقونات FontAwesome للمطورين -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* --- قسم الـ CSS الاحترافي --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* نظام الثيمات - light mode & dark mode */
+    :root {
+      --bg-deep-black: #050505;
+      --bg-dark-slate: #121214;
+      --bg-card: #18181c;
+      --text-pure-white: #ffffff;
+      --text-silver: #a0a0aa;
+      --accent-glow: rgba(255, 255, 255, 0.15);
+      --border-color: #27272a;
+    }
+
+    /* Light Mode */
+    [data-theme="light"] {
+      --bg-deep-black: #f5f5f7;
+      --bg-dark-slate: #e8e8ec;
+      --bg-card: #ffffff;
+      --text-pure-white: #1a1a2e;
+      --text-silver: #4a4a5a;
+      --accent-glow: rgba(0, 0, 0, 0.05);
+      --border-color: #d4d4d8;
+    }
+
+    body {
+      background-color: var(--bg-deep-black);
+      color: var(--text-pure-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* زر التبديل بين الوضع المظلم والفاتح */
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 8px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      margin-left: 20px;
+    }
     
-    <style>
-        /* --- قسم الـ CSS الاحترافي --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
-        }
+    .theme-toggle:hover {
+      transform: scale(1.05);
+      border-color: var(--text-pure-white);
+    }
+    
+    .theme-toggle i {
+      font-size: 1.1rem;
+      color: var(--text-pure-white);
+    }
+    
+    .theme-toggle span {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-pure-white);
+    }
 
-        /* نظام الثيمات - light mode & dark mode */
-        :root {
-            --bg-deep-black: #050505;
-            --bg-dark-slate: #121214;
-            --bg-card: #18181c;
-            --text-pure-white: #ffffff;
-            --text-silver: #a0a0aa;
-            --accent-glow: rgba(255, 255, 255, 0.15);
-            --border-color: #27272a;
-        }
+    /* زر تبديل اللغة */
+    .lang-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-pure-white);
+    }
+    
+    .lang-toggle:hover {
+      transform: scale(1.05);
+      border-color: var(--text-pure-white);
+    }
 
-        /* Light Mode */
-        [data-theme="light"] {
-            --bg-deep-black: #f5f5f7;
-            --bg-dark-slate: #e8e8ec;
-            --bg-card: #ffffff;
-            --text-pure-white: #1a1a2e;
-            --text-silver: #4a4a5a;
-            --accent-glow: rgba(0, 0, 0, 0.05);
-            --border-color: #d4d4d8;
-        }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background-color: rgba(5, 5, 5, 0.75);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.4s ease;
+    }
+    
+    [data-theme="light"] .navbar {
+      background-color: rgba(245, 245, 247, 0.85);
+    }
 
-        body {
-            background-color: var(--bg-deep-black);
-            color: var(--text-pure-white);
-            line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    .navbar.scrolled {
+      padding: 12px 8%;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        /* زر التبديل بين الوضع المظلم والفاتح */
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            padding: 8px 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            margin-left: 20px;
-        }
-        
-        .theme-toggle:hover {
-            transform: scale(1.05);
-            border-color: var(--text-pure-white);
-        }
-        
-        .theme-toggle i {
-            font-size: 1.1rem;
-            color: var(--text-pure-white);
-        }
-        
-        .theme-toggle span {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-pure-white);
-        }
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        /* زر تبديل اللغة */
-        .lang-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            padding: 8px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--text-pure-white);
-        }
-        
-        .lang-toggle:hover {
-            transform: scale(1.05);
-            border-color: var(--text-pure-white);
-        }
+    .logo { 
+      font-size: 1.6rem; 
+      font-weight: 900; 
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    
+    .logo span {
+      color: var(--text-silver);
+      animation: pulse 2s infinite;
+    }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            background-color: rgba(5, 5, 5, 0.75);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color);
-            transition: all 0.4s ease;
-        }
-        
-        [data-theme="light"] .navbar {
-            background-color: rgba(245, 245, 247, 0.85);
-        }
+    .nav-links { display: flex; list-style: none; gap: 30px; }
+    .nav-links a { 
+      color: var(--text-silver); 
+      text-decoration: none; 
+      transition: 0.3s ease; 
+      font-size: 0.95rem;
+      font-weight: 500;
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--text-pure-white);
+      transition: width 0.3s ease;
+    }
 
-        .navbar.scrolled {
-            padding: 12px 8%;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    .nav-links a:hover { color: var(--text-pure-white); }
+    .nav-links a:hover::after { width: 100%; }
 
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8%;
+      position: relative;
+      background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%);
+    }
 
-        .logo { 
-            font-size: 1.6rem; 
-            font-weight: 900; 
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        
-        .logo span {
-            color: var(--text-silver);
-            animation: pulse 2s infinite;
-        }
+    .hero-container {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      max-width: 1200px;
+      width: 100%;
+    }
 
-        .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links a { 
-            color: var(--text-silver); 
-            text-decoration: none; 
-            transition: 0.3s ease; 
-            font-size: 0.95rem;
-            font-weight: 500;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--text-pure-white);
-            transition: width 0.3s ease;
-        }
+    .hero-text { flex: 1.2; text-align: right; }
+    .hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+    .hero p { font-size: 1.3rem; color: var(--text-silver); margin-bottom: 35px; font-weight: 300; }
 
-        .nav-links a:hover { color: var(--text-pure-white); }
-        .nav-links a:hover::after { width: 100%; }
+    .hero-img { flex: 0.8; text-align: center; position: relative; }
+    .hero-img img {
+      max-width: 100%;
+      height: auto;
+      max-height: 450px;
+      filter: drop-shadow(0 10px 30px rgba(255,255,255,0.05));
+      animation: float 4s ease-in-out infinite;
+      transition: transform 0.15s ease;
+      cursor: pointer;
+      user-select: none;
+    }
 
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 8%;
-            position: relative;
-            background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%);
-        }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(1deg); }
+    }
 
-        .hero-container {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-            max-width: 1200px;
-            width: 100%;
-        }
+    .btn {
+      display: inline-block;
+      padding: 14px 35px;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 4px;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .primary { 
+      background: var(--text-pure-white); 
+      color: var(--bg-deep-black); 
+      box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+    }
+    
+    .secondary { 
+      border: 1px solid rgba(255, 255, 255, 0.2); 
+      color: var(--text-pure-white); 
+      margin-right: 20px;
+      background: transparent;
+    }
 
-        .hero-text { flex: 1.2; text-align: right; }
-        .hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
-        .hero p { font-size: 1.3rem; color: var(--text-silver); margin-bottom: 35px; font-weight: 300; }
+    .primary:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 12px 30px rgba(255,255,255,0.25); 
+    }
+    
+    .secondary:hover { 
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--text-pure-white);
+      transform: translateY(-5px);
+    }
 
-        .hero-img { flex: 0.8; text-align: center; position: relative; }
-        .hero-img img {
-            max-width: 100%;
-            height: auto;
-            max-height: 450px;
-            filter: drop-shadow(0 10px 30px rgba(255,255,255,0.05));
-            animation: float 4s ease-in-out infinite;
-            transition: transform 0.15s ease;
-            cursor: pointer;
-        }
+    .section { padding: 120px 8%; text-align: center; }
+    .alt-bg { background-color: var(--bg-dark-slate); }
+    h2 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+    .section-desc { color: var(--text-silver); font-size: 1.1rem; margin-bottom: 60px; font-weight: 300; }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1deg); }
-        }
+    .skills-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+    
+    .skill-card { 
+      background: var(--bg-card); 
+      padding: 40px 30px; 
+      border-radius: 8px; 
+      min-width: 260px; 
+      flex: 1;
+      max-width: 350px;
+      border: 1px solid var(--border-color);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
+      transform: translateX(-100%);
+      transition: 0.6s;
+    }
 
-        .btn {
-            display: inline-block;
-            padding: 14px 35px;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 4px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        
-        .primary { 
-            background: var(--text-pure-white); 
-            color: var(--bg-deep-black); 
-            box-shadow: 0 4px 20px rgba(255,255,255,0.1);
-        }
-        
-        .secondary { 
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            color: var(--text-pure-white); 
-            margin-right: 20px;
-            background: transparent;
-        }
+    .skill-card:hover::before { transform: translateX(100%); }
+    .skill-card:hover { 
+      transform: translateY(-10px); 
+      border-color: rgba(255,255,255,0.3);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+    
+    .skill-card i { font-size: 2.5rem; color: var(--text-pure-white); margin-bottom: 20px; display: block; }
+    .skill-card h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; }
+    .skill-card p { color: var(--text-silver); font-size: 0.95rem; }
 
-        .primary:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 12px 30px rgba(255,255,255,0.25); 
-        }
-        
-        .secondary:hover { 
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--text-pure-white);
-            transform: translateY(-5px);
-        }
+    .portfolio-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+      gap: 30px; 
+      align-items: start;
+    }
+    
+    .project-card, .thumb-card {
+      background: var(--bg-card);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border: 1px solid var(--border-color);
+      position: relative;
+    }
 
-        .section { padding: 120px 8%; text-align: center; }
-        .alt-bg { background-color: var(--bg-dark-slate); }
-        h2 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
-        .section-desc { color: var(--text-silver); font-size: 1.1rem; margin-bottom: 60px; font-weight: 300; }
+    .project-card { padding: 35px; text-align: right; }
+    .project-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
+    .project-card p { color: var(--text-silver); font-size: 0.95rem; }
+    
+    .thumb-card img { 
+      width: 100%; 
+      display: block; 
+      transition: transform 0.6s ease;
+      filter: grayscale(20%);
+    }
 
-        .skills-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-        
-        .skill-card { 
-            background: var(--bg-card); 
-            padding: 40px 30px; 
-            border-radius: 8px; 
-            min-width: 260px; 
-            flex: 1;
-            max-width: 350px;
-            border: 1px solid var(--border-color);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
-            transform: translateX(-100%);
-            transition: 0.6s;
-        }
+    .project-card:hover, .thumb-card:hover { 
+      transform: scale(1.02); 
+      border-color: rgba(255,255,255,0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    
+    .thumb-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
 
-        .skill-card:hover::before { transform: translateX(100%); }
-        .skill-card:hover { 
-            transform: translateY(-10px); 
-            border-color: rgba(255,255,255,0.3);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-        }
-        
-        .skill-card i { font-size: 2.5rem; color: var(--text-pure-white); margin-bottom: 20px; display: block; }
-        .skill-card h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; }
-        .skill-card p { color: var(--text-silver); font-size: 0.95rem; }
+    .game-card {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 35px 30px;
+      border: 1px solid var(--border-color);
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+      justify-content: center;
+    }
 
-        .portfolio-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; 
-            align-items: start;
-        }
-        
-        .project-card, .thumb-card {
-            background: var(--bg-card);
-            border-radius: 6px;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-            border: 1px solid var(--border-color);
-            position: relative;
-        }
+    .game-card:hover {
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
 
-        .project-card { padding: 35px; text-align: right; }
-        .project-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
-        .project-card p { color: var(--text-silver); font-size: 0.95rem; }
-        
-        .thumb-card img { 
-            width: 100%; 
-            display: block; 
-            transition: transform 0.6s ease;
-            filter: grayscale(20%);
-        }
+    .game-card h3 { 
+      font-size: 1.4rem; 
+      margin-bottom: 12px; 
+      color: var(--text-pure-white);
+    }
+    
+    .game-card p { 
+      color: var(--text-silver); 
+      font-size: 0.95rem; 
+      margin-bottom: 20px;
+    }
 
-        .project-card:hover, .thumb-card:hover { 
-            transform: scale(1.02); 
-            border-color: rgba(255,255,255,0.4);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-        
-        .thumb-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
+    .game-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fa5c5c;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-top: 5px;
+    }
 
-        .game-card {
-            background: var(--bg-card);
-            border-radius: 8px;
-            padding: 35px 30px;
-            border: 1px solid var(--border-color);
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            height: 100%;
-            justify-content: center;
-        }
+    .game-link:hover {
+      background: #ff4444;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(250, 92, 92, 0.3);
+    }
+    
+    .game-link i {
+      font-size: 1.1rem;
+    }
 
-        .game-card:hover {
-            border-color: rgba(255,255,255,0.4);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-        }
+    .contact-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+    
+    .contact-top {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: start;
+    }
+    
+    .contact-bottom {
+      width: 100%;
+    }
+    
+    .video-section-title {
+      text-align: right;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .video-section-title .icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .video-section-title .icon-circle i {
+      color: #ff0000;
+      font-size: 1.1rem;
+    }
+    
+    .video-section-title h4 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-pure-white);
+      margin: 0;
+      letter-spacing: -0.3px;
+    }
+    
+    .video-section-title .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ff0000;
+      margin-right: auto;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .video-col {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .video-box {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      background-color: #000;
+      aspect-ratio: 16/9;
+      width: 100%;
+    }
+    
+    .video-box iframe { 
+      width: 100%; 
+      height: 100%;
+      display: block; 
+      border: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    .video-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #000;
+      color: var(--text-silver);
+      font-size: 1rem;
+      z-index: 1;
+    }
+    
+    .video-placeholder i {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      animation: pulse 2s infinite;
+    }
 
-        .game-card h3 { 
-            font-size: 1.4rem; 
-            margin-bottom: 12px; 
-            color: var(--text-pure-white);
-        }
-        
-        .game-card p { 
-            color: var(--text-silver); 
-            font-size: 0.95rem; 
-            margin-bottom: 20px;
-        }
+    .video-placeholder.hidden {
+      display: none;
+    }
+    
+    .contact-info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 35px 30px;
+      text-align: right;
+      height: fit-content;
+    }
+    
+    .contact-info-card h3 { 
+      font-size: 1.5rem; 
+      margin-bottom: 12px; 
+      color: var(--text-pure-white);
+      font-weight: 700;
+    }
+    
+    .contact-info-card > p { 
+      color: var(--text-silver); 
+      margin-bottom: 30px; 
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    
+    .email-display {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+    }
+    
+    .email-display i {
+      color: var(--text-silver);
+      font-size: 1.2rem;
+    }
+    
+    .email-display strong {
+      color: var(--text-pure-white);
+      font-size: 0.95rem;
+    }
+    
+    .social-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .social-btn {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-pure-white);
+      padding: 13px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .social-btn:hover { 
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+    
+    .social-btn.full-width {
+      grid-column: span 2;
+      background: rgba(250, 92, 92, 0.1);
+      border-color: rgba(250, 92, 92, 0.3);
+    }
+    
+    .social-btn.full-width:hover {
+      background: rgba(250, 92, 92, 0.2);
+      border-color: rgba(250, 92, 92, 0.5);
+    }
+    
+    .social-btn.full-width img {
+      width: 18px;
+      height: 18px;
+      filter: brightness(0) invert(1);
+    }
+    
+    [data-theme="light"] .social-btn.full-width img {
+      filter: brightness(0);
+    }
 
-        .game-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #fa5c5c;
-            color: white;
-            padding: 12px 28px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-top: 5px;
-        }
+    .pfp-img { 
+      width: 100px; 
+      height: 100px; 
+      border-radius: 50%; 
+      border: 2px solid rgba(255,255,255,0.15); 
+      margin-bottom: 20px;
+      object-fit: cover;
+      transition: transform 0.4s ease, border-color 0.4s ease;
+    }
+    
+    .pfp-img:hover { 
+      transform: scale(1.08); 
+      border-color: rgba(255,255,255,0.5); 
+    }
 
-        .game-link:hover {
-            background: #ff4444;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(250, 92, 92, 0.3);
-        }
-        
-        .game-link i {
-            font-size: 1.1rem;
-        }
+    footer { 
+      padding: 50px; 
+      text-align: center; 
+      border-top: 1px solid var(--border-color); 
+      color: var(--text-silver);
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
 
-        .contact-wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-        }
-        
-        .contact-top {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-            align-items: start;
-        }
-        
-        .contact-bottom {
-            width: 100%;
-        }
-        
-        .video-section-title {
-            text-align: right;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .video-section-title .icon-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 0, 0, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        .video-section-title .icon-circle i {
-            color: #ff0000;
-            font-size: 1.1rem;
-        }
-        
-        .video-section-title h4 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-pure-white);
-            margin: 0;
-            letter-spacing: -0.3px;
-        }
-        
-        .video-section-title .live-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ff0000;
-            margin-right: auto;
-            animation: pulse 1.5s infinite;
-        }
-        
-        .video-col {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .video-box {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            background-color: #000;
-            aspect-ratio: 16/9;
-            width: 100%;
-        }
-        
-        .video-box iframe { 
-            width: 100%; 
-            height: 100%;
-            display: block; 
-            border: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        
-        .video-placeholder {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #000;
-            color: var(--text-silver);
-            font-size: 1rem;
-            z-index: 1;
-        }
-        
-        .video-placeholder i {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            animation: pulse 2s infinite;
-        }
+    /* إشعار إنجاز Xbox الاحترافي */
+    .xbox-achievement {
+      position: fixed;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-120px);
+      background: rgba(20, 20, 20, 0.92);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 60px;
+      padding: 12px 30px 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      z-index: 9999;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.08);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      color: white;
+      min-width: 320px;
+      direction: ltr;
+    }
 
-        .video-placeholder.hidden {
-            display: none;
-        }
-        
-        .contact-info-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 35px 30px;
-            text-align: right;
-            height: fit-content;
-        }
-        
-        .contact-info-card h3 { 
-            font-size: 1.5rem; 
-            margin-bottom: 12px; 
-            color: var(--text-pure-white);
-            font-weight: 700;
-        }
-        
-        .contact-info-card > p { 
-            color: var(--text-silver); 
-            margin-bottom: 30px; 
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-        
-        .email-display {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 14px 18px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1rem;
-        }
-        
-        .email-display i {
-            color: var(--text-silver);
-            font-size: 1.2rem;
-        }
-        
-        .email-display strong {
-            color: var(--text-pure-white);
-            font-size: 0.95rem;
-        }
-        
-        .social-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        
-        .social-btn {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            color: var(--text-pure-white);
-            padding: 13px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .social-btn:hover { 
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-        
-        .social-btn.full-width {
-            grid-column: span 2;
-            background: rgba(250, 92, 92, 0.1);
-            border-color: rgba(250, 92, 92, 0.3);
-        }
-        
-        .social-btn.full-width:hover {
-            background: rgba(250, 92, 92, 0.2);
-            border-color: rgba(250, 92, 92, 0.5);
-        }
-        
-        .social-btn.full-width img {
-            width: 18px;
-            height: 18px;
-            filter: brightness(0) invert(1);
-        }
-        
-        [data-theme="light"] .social-btn.full-width img {
-            filter: brightness(0);
-        }
+    .xbox-achievement.show {
+      transform: translateX(-50%) translateY(0);
+    }
 
-        .pfp-img { 
-            width: 100px; 
-            height: 100px; 
-            border-radius: 50%; 
-            border: 2px solid rgba(255,255,255,0.15); 
-            margin-bottom: 20px;
-            object-fit: cover;
-            transition: transform 0.4s ease, border-color 0.4s ease;
-        }
-        
-        .pfp-img:hover { 
-            transform: scale(1.08); 
-            border-color: rgba(255,255,255,0.5); 
-        }
+    .xbox-icon-container {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      background: #107c10;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(16,124,16,0.6);
+      flex-shrink: 0;
+    }
 
-        footer { 
-            padding: 50px; 
-            text-align: center; 
-            border-top: 1px solid var(--border-color); 
-            color: var(--text-silver);
-            font-size: 0.9rem;
-            font-weight: 300;
-        }
+    .xbox-icon-container img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
+    .xbox-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
 
-        @media (max-width: 900px) {
-            .hero-container { flex-direction: column-reverse; text-align: center; }
-            .hero-text { text-align: center; }
-            .hero h1 { font-size: 2.8rem; }
-            .nav-links { display: none; }
-            .contact-top { grid-template-columns: 1fr; }
-            .social-grid { grid-template-columns: 1fr; }
-            .social-btn.full-width { grid-column: span 1; }
-            .video-section-title { justify-content: flex-start; }
-            .nav-controls { gap: 8px; }
-            .theme-toggle span { display: none; }
-        }
-        
-        @media (max-width: 500px) {
-            .portfolio-grid { grid-template-columns: 1fr; }
-            .skills-grid { gap: 20px; }
-        }
-    </style>
+    .xbox-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: white;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    .xbox-subtitle {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #d1d1d1;
+      margin-top: 2px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    @media (max-width: 900px) {
+      .hero-container { flex-direction: column-reverse; text-align: center; }
+      .hero-text { text-align: center; }
+      .hero h1 { font-size: 2.8rem; }
+      .nav-links { display: none; }
+      .contact-top { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: 1fr; }
+      .social-btn.full-width { grid-column: span 1; }
+      .video-section-title { justify-content: flex-start; }
+      .nav-controls { gap: 8px; }
+      .theme-toggle span { display: none; }
+      .xbox-achievement {
+        min-width: 280px;
+        padding: 10px 22px;
+      }
+    }
+    
+    @media (max-width: 500px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .skills-grid { gap: 20px; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- شريط التنقل العلوي -->
-    <nav class="navbar">
-        <div class="logo">KOBI<span>.</span></div>
-        <div class="nav-controls">
-            <button class="lang-toggle" id="langToggleBtn">🇬🇧 English</button>
-            <button class="theme-toggle" id="themeToggleBtn">
-                <i class="fas fa-moon"></i>
-                <span>Dark</span>
-            </button>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#hero" data-key="nav_home">الرئيسية</a></li>
-            <li><a href="#about" data-key="nav_about">من أنا</a></li>
-            <li><a href="#dev" data-key="nav_dev">برمجة وألعاب</a></li>
-            <li><a href="#design" data-key="nav_design">معرض التصاميم</a></li>
-            <li><a href="#contact" data-key="nav_contact">تواصل معي</a></li>
-        </ul>
-    </nav>
+  <!-- شريط التنقل العلوي -->
+  <nav class="navbar">
+    <div class="logo">KOBI<span>.</span></div>
+    <div class="nav-controls">
+      <button class="lang-toggle" id="langToggleBtn">🇬🇧 English</button>
+      <button class="theme-toggle" id="themeToggleBtn">
+        <i class="fas fa-moon"></i>
+        <span>Dark</span>
+      </button>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero" data-key="nav_home">الرئيسية</a></li>
+      <li><a href="#about" data-key="nav_about">من أنا</a></li>
+      <li><a href="#dev" data-key="nav_dev">برمجة وألعاب</a></li>
+      <li><a href="#design" data-key="nav_design">معرض التصاميم</a></li>
+      <li><a href="#contact" data-key="nav_contact">تواصل معي</a></li>
+    </ul>
+  </nav>
 
-    <!-- قسم الواجهة الرئيسية -->
-    <header id="hero" class="hero">
-        <div class="hero-container">
-            <div class="hero-text">
-                <h1 data-key="hero_title">أهلاً، أنا كـوبي</h1>
-                <p data-key="hero_desc">صانع محتوى تقني • مطور ألعاب في Godot • مبرمج تطبيقات Python • مصمم صور مصغرة</p>
-                <a href="#design" class="btn primary" data-key="hero_btn1">تصفح معرض أعمالي</a>
-                <a href="https://youtube.com/@kobiS21" target="_blank" class="btn secondary" data-key="hero_btn2">قناتي على اليوتيوب</a>
-            </div>
-            <div class="hero-img">
-                <img src="Character.png" alt="Kobi Character" id="characterImg">
-            </div>
-        </div>
-    </header>
+  <!-- قسم الواجهة الرئيسية -->
+  <header id="hero" class="hero">
+    <div class="hero-container">
+      <div class="hero-text">
+        <h1 data-key="hero_title">أهلاً، أنا كـوبي</h1>
+        <p data-key="hero_desc">صانع محتوى تقني • مطور ألعاب في Godot • مبرمج تطبيقات Python • مصمم صور مصغرة</p>
+        <a href="#design" class="btn primary" data-key="hero_btn1">تصفح معرض أعمالي</a>
+        <a href="https://youtube.com/@kobiS21" target="_blank" class="btn secondary" data-key="hero_btn2">قناتي على اليوتيوب</a>
+      </div>
+      <div class="hero-img">
+        <img src="Character.png" alt="Kobi Character" id="characterImg">
+      </div>
+    </div>
+  </header>
 
-    <!-- قسم من أنا -->
-    <section id="about" class="section alt-bg reveal">
-        <h2 data-key="about_title">من أَنَا</h2>
-        <p class="section-desc" data-key="about_desc">أنا مبرمج ومصمم مغربي بعمر 15 سنة، أجمع بين مهارات متعددة لبناء تجارب متكاملة بصرياً وبرمجياً.</p>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <i class="fab fa-python"></i>
-                <h3 data-key="skill1_title">Python Development</h3>
-                <p data-key="skill1_desc">صنعت برنامج vtuber باستخدام لغة بايثون.</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-gamepad"></i>
-                <h3 data-key="skill2_title">Godot Engine</h3>
-                <p data-key="skill2_desc">تطوير ألعاب 3D و 2D بجودة عالية.</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-layer-group"></i>
-                <h3 data-key="skill3_title">Visual Design</h3>
-                <p data-key="skill3_desc">صناعة وتصميم صور مصغرة (Thumbnails) ومونتاج فيديو احترافي يزيد من نسب النقر والمشاهدة.</p>
-            </div>
-        </div>
-    </section>
+  <!-- قسم من أنا -->
+  <section id="about" class="section alt-bg reveal">
+    <h2 data-key="about_title">من أَنَا</h2>
+    <p class="section-desc" data-key="about_desc">أنا مبرمج ومصمم مغربي بعمر 15 سنة، أجمع بين مهارات متعددة لبناء تجارب متكاملة بصرياً وبرمجياً.</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <i class="fab fa-python"></i>
+        <h3 data-key="skill1_title">Python Development</h3>
+        <p data-key="skill1_desc">صنعت برنامج vtuber باستخدام لغة بايثون.</p>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-gamepad"></i>
+        <h3 data-key="skill2_title">Godot Engine</h3>
+        <p data-key="skill2_desc">تطوير ألعاب 3D و 2D بجودة عالية.</p>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-layer-group"></i>
+        <h3 data-key="skill3_title">Visual Design</h3>
+        <p data-key="skill3_desc">صناعة وتصميم صور مصغرة (Thumbnails) ومونتاج فيديو احترافي يزيد من نسب النقر والمشاهدة.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- قسم البرمجة وتطوير الألعاب -->
-    <section id="dev" class="section reveal">
-        <h2 data-key="dev_title">البرمجة وتطوير الألعاب</h2>
-        <p class="section-desc" data-key="dev_desc">أحدث التحديات والأشياء التي قمت بها.</p>
-        <div class="portfolio-grid">
-            <div class="game-card">
-                <h3>🎮 <span data-key="game_title">Challenge With Youtubers</span></h3>
-                <p data-key="game_desc">تحدي صنعت لعبة في ساعة واحدة!</p>
-                <a href="https://kobi-21.itch.io/the-annoying-ball" 
-                   target="_blank" 
-                   class="game-link">
-                    <i class="fas fa-play"></i>
-                    <span data-key="game_btn">إلعب الآن على itch.io</span>
-                </a>
-            </div>
-            
-            <div class="project-card">
-                <h3>💿 <span data-key="project_title">Game Developer Skill</span></h3>
-                <p data-key="project_desc">تطوير ألعاب على محرك Godot بمستوى احترافي.</p>
-            </div>
-        </div>
-    </section>
+  <!-- قسم البرمجة وتطوير الألعاب -->
+  <section id="dev" class="section reveal">
+    <h2 data-key="dev_title">البرمجة وتطوير الألعاب</h2>
+    <p class="section-desc" data-key="dev_desc">أحدث التحديات والأشياء التي قمت بها.</p>
+    <div class="portfolio-grid">
+      <div class="game-card">
+        <h3>🎮 <span data-key="game_title">Challenge With Youtubers</span></h3>
+        <p data-key="game_desc">تحدي صنعت لعبة في ساعة واحدة!</p>
+        <a href="https://kobi-21.itch.io/the-annoying-ball" target="_blank" class="game-link">
+          <i class="fas fa-play"></i>
+          <span data-key="game_btn">إلعب الآن على itch.io</span>
+        </a>
+      </div>
+      
+      <div class="project-card">
+        <h3>💿 <span data-key="project_title">Game Developer Skill</span></h3>
+        <p data-key="project_desc">تطوير ألعاب على محرك Godot بمستوى احترافي.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- قسم معرض التصاميم الاحترافي -->
-    <section id="design" class="section alt-bg reveal">
-        <h2 data-key="design_title">معرض الصور المصغرة</h2>
-        <p class="section-desc" data-key="design_desc">نماذج حية من تصاميمي الموجهة لزيادة التفاعل وجذب المشاهدين بصرياً.</p>
-        <div class="portfolio-grid">
-            <div class="thumb-card"><img src="ThumbnailTutorial.png" alt="Design Tutorial"></div>
-            <div class="thumb-card"><img src="No_Assets.png" alt="No Assets"></div>
-            <div class="thumb-card"><img src="Stoat.png" alt="Stoat vs Discord"></div>
-            <div class="thumb-card"><img src="Drama.png" alt="Drama !"></div>
-            <div class="thumb-card"><img src="AI.png" alt="AI Prices Truth"></div>
-        </div>
-    </section>
+  <!-- قسم معرض التصاميم الاحترافي -->
+  <section id="design" class="section alt-bg reveal">
+    <h2 data-key="design_title">معرض الصور المصغرة</h2>
+    <p class="section-desc" data-key="design_desc">نماذج حية من تصاميمي الموجهة لزيادة التفاعل وجذب المشاهدين بصرياً.</p>
+    <div class="portfolio-grid">
+      <div class="thumb-card"><img src="ThumbnailTutorial.png" alt="Design Tutorial"></div>
+      <div class="thumb-card"><img src="No_Assets.png" alt="No Assets"></div>
+      <div class="thumb-card"><img src="Stoat.png" alt="Stoat vs Discord"></div>
+      <div class="thumb-card"><img src="Drama.png" alt="Drama !"></div>
+      <div class="thumb-card"><img src="AI.png" alt="AI Prices Truth"></div>
+    </div>
+  </section>
 
-    <!-- قسم التواصل -->
-    <section id="contact" class="section reveal">
-        <img src="Pfp.png" alt="Kobi Profile Picture" class="pfp-img">
-        <h2 data-key="contact_title">لنقم ببناء شيء إبداعي معاً</h2>
-        <p class="section-desc" data-key="contact_desc">إذا كنت تبحث عن مصمم محترف لرفع جودة قناتك، أو مطور لتنفيذ فكرتك، لا تتردد في التواصل معي.</p>
+  <!-- قسم التواصل -->
+  <section id="contact" class="section reveal">
+    <img src="Pfp.png" alt="Kobi Profile Picture" class="pfp-img">
+    <h2 data-key="contact_title">لنقم ببناء شيء إبداعي معاً</h2>
+    <p class="section-desc" data-key="contact_desc">إذا كنت تبحث عن مصمم محترف لرفع جودة قناتك، أو مطور لتنفيذ فكرتك، لا تتردد في التواصل معي.</p>
+    
+    <div class="contact-wrapper">
+      <div class="contact-top">
+        <div class="video-col">
+          <div class="video-section-title">
+            <div class="icon-circle">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <h4 data-key="video_title">آخر فيديوهاتي</h4>
+            <div class="live-dot"></div>
+          </div>
+          
+          <div class="video-box">
+            <div class="video-placeholder" id="videoPlaceholder">
+              <div style="text-align: center;">
+                <i class="fab fa-youtube"></i>
+                <p data-key="video_loading">جاري تحميل آخر فيديو...</p>
+              </div>
+            </div>
+            <iframe id="youtubeVideo"
+              src=""
+              allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              style="border: none; opacity: 0; transition: opacity 0.5s ease;">
+            </iframe>
+          </div>
+        </div>
         
-        <div class="contact-wrapper">
-            <div class="contact-top">
-                <div class="video-col">
-                    <div class="video-section-title">
-                        <div class="icon-circle">
-                            <i class="fab fa-youtube"></i>
-                        </div>
-                        <h4 data-key="video_title">آخر فيديوهاتي</h4>
-                        <div class="live-dot"></div>
-                    </div>
-                    
-                    <div class="video-box">
-                        <div class="video-placeholder" id="videoPlaceholder">
-                            <div style="text-align: center;">
-                                <i class="fab fa-youtube"></i>
-                                <p data-key="video_loading">جاري تحميل آخر فيديو...</p>
-                            </div>
-                        </div>
-                        <iframe id="youtubeVideo"
-                            src=""
-                            allowfullscreen
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            style="border: none; opacity: 0; transition: opacity 0.5s ease;">
-                        </iframe>
-                    </div>
-                </div>
-                
-                <div class="contact-info-card">
-                    <h3 data-key="contact_info_title">معلومات التواصل</h3>
-                    <p data-key="contact_info_desc">لأي استفسارات تجارية أو تعاون، يمكنك مراسلتي عبر البريد الإلكتروني أو متابعتي على منصات التواصل.</p>
-                    
-                    <div class="email-display">
-                        <i class="fas fa-envelope"></i>
-                        <strong>KobiBessn@gmail.com</strong>
-                    </div>
-                    
-                    <div class="social-grid">
-                        <a href="https://instagram.com/Kobix12" target="_blank" class="social-btn">
-                            <i class="fab fa-instagram"></i> Instagram
-                        </a>
-                        <a href="https://x.com/kobi20x" target="_blank" class="social-btn">
-                            <i class="fab fa-x-twitter"></i> X (Twitter)
-                        </a>
-                        <a href="https://youtube.com/@kobiS21" target="_blank" class="social-btn">
-                            <i class="fab fa-youtube"></i> YouTube
-                        </a>
-                        <span class="social-btn">
-                            <i class="fab fa-discord"></i> Kobix1
-                        </span>
-                        <a href="https://kobi-21.itch.io" target="_blank" class="social-btn full-width">
-                            <img src="https://static.itch.io/images/itchio-textless-white.svg" 
-                                 alt="itch.io"
-                                 onerror="this.style.display='none';">
-                            <i class="fas fa-globe" style="display:none;"></i>
-                            <span data-key="itch_btn">itch.io | ألعابي</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="contact-info-card">
+          <h3 data-key="contact_info_title">معلومات التواصل</h3>
+          <p data-key="contact_info_desc">لأي استفسارات تجارية أو تعاون، يمكنك مراسلتي عبر البريد الإلكتروني أو متابعتي على منصات التواصل.</p>
+          
+          <div class="email-display">
+            <i class="fas fa-envelope"></i>
+            <strong>KobiBessn@gmail.com</strong>
+          </div>
+          
+          <div class="social-grid">
+            <a href="https://instagram.com/Kobix12" target="_blank" class="social-btn">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://x.com/kobi20x" target="_blank" class="social-btn">
+              <i class="fab fa-x-twitter"></i> X (Twitter)
+            </a>
+            <a href="https://youtube.com/@kobiS21" target="_blank" class="social-btn">
+              <i class="fab fa-youtube"></i> YouTube
+            </a>
+            <span class="social-btn">
+              <i class="fab fa-discord"></i> Kobix1
+            </span>
+            <a href="https://kobi-21.itch.io" target="_blank" class="social-btn full-width">
+              <img src="https://static.itch.io/images/itchio-textless-white.svg" alt="itch.io" onerror="this.style.display='none';">
+              <i class="fas fa-globe" style="display:none;"></i>
+              <span data-key="itch_btn">itch.io | ألعابي</span>
+            </a>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <p data-key="footer">&copy; 2026 كـوبي | كل الحقوق محفوظة.</p>
-    </footer>
+  <footer>
+    <p data-key="footer">&copy; 2026 كـوبي | كل الحقوق محفوظة.</p>
+  </footer>
 
-    <script>
-        // --- نظام الترجمة (العربية ↔ الإنجليزية) ---
-        const translations = {
-            ar: {
-                nav_home: "الرئيسية",
-                nav_about: "من أنا",
-                nav_dev: "برمجة وألعاب",
-                nav_design: "معرض التصاميم",
-                nav_contact: "تواصل معي",
-                hero_title: "أهلاً، أنا كـوبي",
-                hero_desc: "صانع محتوى تقني • مطور ألعاب في Godot • مبرمج تطبيقات Python • مصمم صور مصغرة",
-                hero_btn1: "تصفح معرض أعمالي",
-                hero_btn2: "قناتي على اليوتيوب",
-                about_title: "من أَنَا",
-                about_desc: "أنا مبرمج ومصمم مغربي بعمر 15 سنة، أجمع بين مهارات متعددة لبناء تجارب متكاملة بصرياً وبرمجياً.",
-                skill1_title: "Python Development",
-                skill1_desc: "صنعت برنامج vtuber باستخدام لغة بايثون.",
-                skill2_title: "Godot Engine",
-                skill2_desc: "تطوير ألعاب 3D و 2D بجودة عالية.",
-                skill3_title: "Visual Design",
-                skill3_desc: "صناعة وتصميم صور مصغرة (Thumbnails) ومونتاج فيديو احترافي يزيد من نسب النقر والمشاهدة.",
-                dev_title: "البرمجة وتطوير الألعاب",
-                dev_desc: "أحدث التحديات والأشياء التي قمت بها.",
-                game_title: "Challenge With Youtubers",
-                game_desc: "تحدي صنعت لعبة في ساعة واحدة!",
-                game_btn: "إلعب الآن على itch.io",
-                project_title: "Game Developer Skill",
-                project_desc: "تطوير ألعاب على محرك Godot بمستوى احترافي.",
-                design_title: "معرض الصور المصغرة",
-                design_desc: "نماذج حية من تصاميمي الموجهة لزيادة التفاعل وجذب المشاهدين بصرياً.",
-                contact_title: "لنقم ببناء شيء إبداعي معاً",
-                contact_desc: "إذا كنت تبحث عن مصمم محترف لرفع جودة قناتك، أو مطور لتنفيذ فكرتك، لا تتردد في التواصل معي.",
-                video_title: "آخر فيديوهاتي",
-                video_loading: "جاري تحميل آخر فيديو...",
-                contact_info_title: "معلومات التواصل",
-                contact_info_desc: "لأي استفسارات تجارية أو تعاون، يمكنك مراسلتي عبر البريد الإلكتروني أو متابعتي على منصات التواصل.",
-                itch_btn: "itch.io | ألعابي",
-                footer: "© 2026 كـوبي | كل الحقوق محفوظة."
-            },
-            en: {
-                nav_home: "Home",
-                nav_about: "About Me",
-                nav_dev: "Coding & Games",
-                nav_design: "Design Gallery",
-                nav_contact: "Contact Me",
-                hero_title: "Hi, I'm Kobi",
-                hero_desc: "Tech Content Creator • Godot Game Developer • Python Developer • Thumbnail Designer",
-                hero_btn1: "Browse My Work",
-                hero_btn2: "My YouTube Channel",
-                about_title: "About Me",
-                about_desc: "I'm a 15-year-old Moroccan programmer and designer, combining multiple skills to build visually and programmatically integrated experiences.",
-                skill1_title: "Python Development",
-                skill1_desc: "I built a vtuber program using Python.",
-                skill2_title: "Godot Engine",
-                skill2_desc: "Developing high-quality 3D & 2D games.",
-                skill3_title: "Visual Design",
-                skill3_desc: "Creating professional thumbnails and video editing that increases CTR and views.",
-                dev_title: "Coding & Game Development",
-                dev_desc: "Latest challenges and achievements.",
-                game_title: "Challenge With Youtubers",
-                game_desc: "A challenge where I made a game in one hour!",
-                game_btn: "Play Now on itch.io",
-                project_title: "Game Developer Skill",
-                project_desc: "Professional game development using Godot Engine.",
-                design_title: "Thumbnail Gallery",
-                design_desc: "Live examples of my designs aimed at increasing engagement and attracting viewers visually.",
-                contact_title: "Let's Build Something Creative Together",
-                contact_desc: "If you're looking for a professional designer to elevate your channel's quality, or a developer to bring your idea to life, feel free to reach out.",
-                video_title: "My Latest Videos",
-                video_loading: "Loading latest video...",
-                contact_info_title: "Contact Info",
-                contact_info_desc: "For business inquiries or collaborations, you can email me or follow me on social platforms.",
-                itch_btn: "itch.io | My Games",
-                footer: "© 2026 Kobi | All Rights Reserved."
-            }
-        };
+  <!-- إشعار إنجاز Xbox (يظهر عند الحاجة) -->
+  <div id="xboxAchievement" class="xbox-achievement">
+    <div class="xbox-icon-container">
+      <img src="xbox.png" alt="Xbox Achievement Icon" id="xboxIconImg">
+    </div>
+    <div class="xbox-text">
+      <span class="xbox-title" data-key="achieve_title">لقد حققت إنجاز جديد !</span>
+      <span class="xbox-subtitle" data-key="achieve_desc">لقد أزعجت كوبي</span>
+    </div>
+  </div>
 
-        let currentLang = 'ar';
-
-        function updateLanguage(lang) {
-            const elements = document.querySelectorAll('[data-key]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (translations[lang][key]) {
-                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.placeholder = translations[lang][key];
-                    } else {
-                        el.innerHTML = translations[lang][key];
-                    }
-                }
-            });
-            
-            if (lang === 'ar') {
-                document.documentElement.setAttribute('dir', 'rtl');
-                document.documentElement.setAttribute('lang', 'ar');
-                document.getElementById('langToggleBtn').innerHTML = '🇬🇧 English';
-            } else {
-                document.documentElement.setAttribute('dir', 'ltr');
-                document.documentElement.setAttribute('lang', 'en');
-                document.getElementById('langToggleBtn').innerHTML = '🇸🇦 العربية';
-            }
-            
-            localStorage.setItem('kobi_lang', lang);
-            currentLang = lang;
+  <script>
+    (function() {
+      // --- نظام الترجمة (العربية ↔ الإنجليزية) ---
+      const translations = {
+        ar: {
+          nav_home: "الرئيسية",
+          nav_about: "من أنا",
+          nav_dev: "برمجة وألعاب",
+          nav_design: "معرض التصاميم",
+          nav_contact: "تواصل معي",
+          hero_title: "أهلاً، أنا كـوبي",
+          hero_desc: "صانع محتوى تقني • مطور ألعاب في Godot • مبرمج تطبيقات Python • مصمم صور مصغرة",
+          hero_btn1: "تصفح معرض أعمالي",
+          hero_btn2: "قناتي على اليوتيوب",
+          about_title: "من أَنَا",
+          about_desc: "أنا مبرمج ومصمم مغربي بعمر 15 سنة، أجمع بين مهارات متعددة لبناء تجارب متكاملة بصرياً وبرمجياً.",
+          skill1_title: "Python Development",
+          skill1_desc: "صنعت برنامج vtuber باستخدام لغة بايثون.",
+          skill2_title: "Godot Engine",
+          skill2_desc: "تطوير ألعاب 3D و 2D بجودة عالية.",
+          skill3_title: "Visual Design",
+          skill3_desc: "صناعة وتصميم صور مصغرة (Thumbnails) ومونتاج فيديو احترافي يزيد من نسب النقر والمشاهدة.",
+          dev_title: "البرمجة وتطوير الألعاب",
+          dev_desc: "أحدث التحديات والأشياء التي قمت بها.",
+          game_title: "Challenge With Youtubers",
+          game_desc: "تحدي صنعت لعبة في ساعة واحدة!",
+          game_btn: "إلعب الآن على itch.io",
+          project_title: "Game Developer Skill",
+          project_desc: "تطوير ألعاب على محرك Godot بمستوى احترافي.",
+          design_title: "معرض الصور المصغرة",
+          design_desc: "نماذج حية من تصاميمي الموجهة لزيادة التفاعل وجذب المشاهدين بصرياً.",
+          contact_title: "لنقم ببناء شيء إبداعي معاً",
+          contact_desc: "إذا كنت تبحث عن مصمم محترف لرفع جودة قناتك، أو مطور لتنفيذ فكرتك، لا تتردد في التواصل معي.",
+          video_title: "آخر فيديوهاتي",
+          video_loading: "جاري تحميل آخر فيديو...",
+          contact_info_title: "معلومات التواصل",
+          contact_info_desc: "لأي استفسارات تجارية أو تعاون، يمكنك مراسلتي عبر البريد الإلكتروني أو متابعتي على منصات التواصل.",
+          itch_btn: "itch.io | ألعابي",
+          footer: "© 2026 كـوبي | كل الحقوق محفوظة.",
+          achieve_title: "لقد حققت إنجاز جديد !",
+          achieve_desc: "لقد أزعجت كوبي"
+        },
+        en: {
+          nav_home: "Home",
+          nav_about: "About Me",
+          nav_dev: "Coding & Games",
+          nav_design: "Design Gallery",
+          nav_contact: "Contact Me",
+          hero_title: "Hi, I'm Kobi",
+          hero_desc: "Tech Content Creator • Godot Game Developer • Python Developer • Thumbnail Designer",
+          hero_btn1: "Browse My Work",
+          hero_btn2: "My YouTube Channel",
+          about_title: "About Me",
+          about_desc: "I'm a 15-year-old Moroccan programmer and designer, combining multiple skills to build visually and programmatically integrated experiences.",
+          skill1_title: "Python Development",
+          skill1_desc: "I built a vtuber program using Python.",
+          skill2_title: "Godot Engine",
+          skill2_desc: "Developing high-quality 3D & 2D games.",
+          skill3_title: "Visual Design",
+          skill3_desc: "Creating professional thumbnails and video editing that increases CTR and views.",
+          dev_title: "Coding & Game Development",
+          dev_desc: "Latest challenges and achievements.",
+          game_title: "Challenge With Youtubers",
+          game_desc: "A challenge where I made a game in one hour!",
+          game_btn: "Play Now on itch.io",
+          project_title: "Game Developer Skill",
+          project_desc: "Professional game development using Godot Engine.",
+          design_title: "Thumbnail Gallery",
+          design_desc: "Live examples of my designs aimed at increasing engagement and attracting viewers visually.",
+          contact_title: "Let's Build Something Creative Together",
+          contact_desc: "If you're looking for a professional designer to elevate your channel's quality, or a developer to bring your idea to life, feel free to reach out.",
+          video_title: "My Latest Videos",
+          video_loading: "Loading latest video...",
+          contact_info_title: "Contact Info",
+          contact_info_desc: "For business inquiries or collaborations, you can email me or follow me on social platforms.",
+          itch_btn: "itch.io | My Games",
+          footer: "© 2026 Kobi | All Rights Reserved.",
+          achieve_title: "Achievement Unlocked!",
+          achieve_desc: "You annoyed Kobi"
         }
+      };
 
-        // --- نظام التبديل بين الوضع المظلم والفاتح ---
-        function initTheme() {
-            const savedTheme = localStorage.getItem('kobi_theme');
-            const themeBtn = document.getElementById('themeToggleBtn');
-            const icon = themeBtn.querySelector('i');
-            const span = themeBtn.querySelector('span');
-            
-            if (savedTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                icon.className = 'fas fa-sun';
-                span.textContent = 'Light';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                icon.className = 'fas fa-moon';
-                span.textContent = 'Dark';
-            }
-        }
-        
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const themeBtn = document.getElementById('themeToggleBtn');
-            const icon = themeBtn.querySelector('i');
-            const span = themeBtn.querySelector('span');
-            
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('kobi_theme', 'light');
-                icon.className = 'fas fa-sun';
-                span.textContent = 'Light';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('kobi_theme', 'dark');
-                icon.className = 'fas fa-moon';
-                span.textContent = 'Dark';
-            }
-        }
+      let currentLang = 'ar';
 
-        // --- المؤثرات الحركية ---
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
+      function updateLanguage(lang) {
+        const elements = document.querySelectorAll('[data-key]');
+        elements.forEach(el => {
+          const key = el.getAttribute('data-key');
+          if (translations[lang] && translations[lang][key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+              el.placeholder = translations[lang][key];
             } else {
-                nav.classList.remove('scrolled');
+              el.innerHTML = translations[lang][key];
             }
+          }
         });
+        
+        if (lang === 'ar') {
+          document.documentElement.setAttribute('dir', 'rtl');
+          document.documentElement.setAttribute('lang', 'ar');
+          document.getElementById('langToggleBtn').innerHTML = '🇬🇧 English';
+        } else {
+          document.documentElement.setAttribute('dir', 'ltr');
+          document.documentElement.setAttribute('lang', 'en');
+          document.getElementById('langToggleBtn').innerHTML = '🇸🇦 العربية';
+        }
+        
+        localStorage.setItem('kobi_lang', lang);
+        currentLang = lang;
+      }
 
-        function revealElements() {
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(element => {
-                const windowHeight = window.innerHeight;
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
+      // --- نظام التبديل بين الوضع المظلم والفاتح ---
+      function initTheme() {
+        const savedTheme = localStorage.getItem('kobi_theme');
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const icon = themeBtn.querySelector('i');
+        const span = themeBtn.querySelector('span');
+        
+        if (savedTheme === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+          icon.className = 'fas fa-sun';
+          span.textContent = 'Light';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          icon.className = 'fas fa-moon';
+          span.textContent = 'Dark';
+        }
+      }
+      
+      function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const icon = themeBtn.querySelector('i');
+        const span = themeBtn.querySelector('span');
+        
+        if (currentTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('kobi_theme', 'light');
+          icon.className = 'fas fa-sun';
+          span.textContent = 'Light';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('kobi_theme', 'dark');
+          icon.className = 'fas fa-moon';
+          span.textContent = 'Dark';
+        }
+      }
 
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add('active');
+      // --- المؤثرات الحركية ---
+      window.addEventListener('scroll', () => {
+        const nav = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      });
+
+      function revealElements() {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(element => {
+          const windowHeight = window.innerHeight;
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150;
+          if (elementTop < windowHeight - elementVisible) {
+            element.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', revealElements);
+      window.addEventListener('load', revealElements);
+
+      // --- تحميل آخر فيديو ---
+      function loadLatestVideo() {
+        const iframe = document.getElementById("youtubeVideo");
+        const placeholder = document.getElementById("videoPlaceholder");
+        const channelId = 'UCUGWA03t9IPod30tNmX9QzQ';
+        
+        fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/playlist?list=UU${channelId.substring(2)}&format=json`)
+          .then(response => response.json())
+          .then(data => {
+            const thumbnailUrl = data.thumbnail_url;
+            const videoIdMatch = thumbnailUrl.match(/\/vi\/([^\/]+)\//);
+            if (videoIdMatch && videoIdMatch[1]) {
+              showVideo(videoIdMatch[1]);
+            } else {
+              throw new Error('لم يتم العثور على معرف الفيديو');
+            }
+          })
+          .catch(() => {
+            return fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`)
+              .then(response => response.text())
+              .then(data => {
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(data, "text/xml");
+                const videoIdElement = xml.getElementsByTagName("yt:videoId")[0];
+                if (videoIdElement && videoIdElement.textContent) {
+                  showVideo(videoIdElement.textContent);
+                } else {
+                  throw new Error('فشل تحميل الفيديو');
                 }
-            });
+              });
+          })
+          .catch(error => {
+            console.log('لم يتم تحميل الفيديو:', error.message);
+            showFallback();
+          });
+
+        function showVideo(videoId) {
+          iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&modestbranding=1`;
+          iframe.onload = function() {
+            placeholder.classList.add('hidden');
+            iframe.style.opacity = '1';
+          };
         }
 
-        window.addEventListener('scroll', revealElements);
-        window.addEventListener('load', revealElements);
-
-        // --- تحميل آخر فيديو ---
-        function loadLatestVideo() {
-            const iframe = document.getElementById("youtubeVideo");
-            const placeholder = document.getElementById("videoPlaceholder");
-            const channelId = 'UCUGWA03t9IPod30tNmX9QzQ';
-            
-            fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/playlist?list=UU${channelId.substring(2)}&format=json`)
-                .then(response => response.json())
-                .then(data => {
-                    const thumbnailUrl = data.thumbnail_url;
-                    const videoIdMatch = thumbnailUrl.match(/\/vi\/([^\/]+)\//);
-                    
-                    if (videoIdMatch && videoIdMatch[1]) {
-                        showVideo(videoIdMatch[1]);
-                    } else {
-                        throw new Error('لم يتم العثور على معرف الفيديو');
-                    }
-                })
-                .catch(() => {
-                    return fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`)
-                        .then(response => response.text())
-                        .then(data => {
-                            const parser = new DOMParser();
-                            const xml = parser.parseFromString(data, "text/xml");
-                            const videoIdElement = xml.getElementsByTagName("yt:videoId")[0];
-                            
-                            if (videoIdElement && videoIdElement.textContent) {
-                                showVideo(videoIdElement.textContent);
-                            } else {
-                                throw new Error('فشل تحميل الفيديو');
-                            }
-                        });
-                })
-                .catch(error => {
-                    console.log('لم يتم تحميل الفيديو:', error.message);
-                    showFallback();
-                });
-
-            function showVideo(videoId) {
-                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&modestbranding=1`;
-                
-                iframe.onload = function() {
-                    placeholder.classList.add('hidden');
-                    iframe.style.opacity = '1';
-                };
-            }
-
-            function showFallback() {
-                placeholder.innerHTML = `
-                    <div style="text-align: center;">
-                        <i class="fab fa-youtube" style="font-size: 3rem; margin-bottom: 10px; color: #ff0000;"></i>
-                        <p style="margin-bottom: 15px;">${currentLang === 'ar' ? 'شاهد أحدث الفيديوهات' : 'Watch latest videos'}</p>
-                        <a href="https://youtube.com/@kobiS21" target="_blank" 
-                           style="color: #ffffff; background: #ff0000; padding: 10px 25px; border-radius: 4px; 
-                                  text-decoration: none; font-weight: 600; transition: all 0.3s ease;
-                                  display: inline-block;">
-                            <i class="fab fa-youtube" style="margin-left: 8px;"></i>
-                            ${currentLang === 'ar' ? 'زيارة القناة' : 'Visit Channel'}
-                        </a>
-                    </div>
-                `;
-            }
+        function showFallback() {
+          placeholder.innerHTML = `
+            <div style="text-align: center;">
+              <i class="fab fa-youtube" style="font-size: 3rem; margin-bottom: 10px; color: #ff0000;"></i>
+              <p style="margin-bottom: 15px;">${currentLang === 'ar' ? 'شاهد أحدث الفيديوهات' : 'Watch latest videos'}</p>
+              <a href="https://youtube.com/@kobiS21" target="_blank" 
+                 style="color: #ffffff; background: #ff0000; padding: 10px 25px; border-radius: 4px; 
+                        text-decoration: none; font-weight: 600; transition: all 0.3s ease;
+                        display: inline-block;">
+                <i class="fab fa-youtube" style="margin-left: 8px;"></i>
+                ${currentLang === 'ar' ? 'زيارة القناة' : 'Visit Channel'}
+              </a>
+            </div>
+          `;
         }
+      }
 
-        // ========== 🎮 نظام النقرات على الشخصية ==========
-        let clickCount = 0;
-        let isPlaying = false;
+      // ========== 🎮 نظام النقرات على الشخصية + إنجاز Xbox ==========
+      let clickCount = 0;
+      let isPlaying = false;
+      let achievementTimer = null;
+      const xboxAchievement = document.getElementById('xboxAchievement');
+      
+      function showXboxAchievement() {
+        if (!xboxAchievement) return;
         
-        function closeWebsite() {
-            // تأثير تلاشي قبل الإغلاق
-            document.body.style.transition = 'opacity 0.3s ease';
-            document.body.style.opacity = '0';
-            
-            setTimeout(() => {
-                // محاولة إغلاق النافذة
-                window.close();
-                
-                // إذا لم يتم الإغلاق (معظم المتصفحات تمنع window.close())
-                setTimeout(() => {
-                    document.body.innerHTML = `
-                        <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: #000; color: white; text-align: center; flex-direction: column;">
-                            <h1 style="font-size: 2rem; margin-bottom: 20px;">⚠️</h1>
-                            <p style="font-size: 1.2rem;">${currentLang === 'ar' ? 'الرجاء إغلاق هذه الصفحة يدوياً' : 'Please close this page manually'}</p>
-                        </div>
-                    `;
-                    document.body.style.opacity = '1';
-                }, 100);
-            }, 300);
-        }
+        // تحديث النصوص حسب اللغة الحالية
+        const titleEl = xboxAchievement.querySelector('[data-key="achieve_title"]');
+        const descEl = xboxAchievement.querySelector('[data-key="achieve_desc"]');
+        if (titleEl) titleEl.textContent = translations[currentLang].achieve_title;
+        if (descEl) descEl.textContent = translations[currentLang].achieve_desc;
         
-        function playSound(soundFile) {
-            return new Promise((resolve, reject) => {
-                const audio = new Audio(soundFile);
-                
-                audio.onended = () => {
-                    resolve();
-                };
-                
-                audio.onerror = (e) => {
-                    console.error(`❌ خطأ في تحميل الصوت ${soundFile}:`, e);
-                    reject(e);
-                };
-                
-                audio.play().catch(error => {
-                    console.error(`⚠️ خطأ في تشغيل الصوت ${soundFile}:`, error);
-                    reject(error);
-                });
-            });
+        // إظهار الإشعار
+        xboxAchievement.classList.add('show');
+        
+        // إخفاء تلقائي بعد 5 ثوانٍ
+        if (achievementTimer) clearTimeout(achievementTimer);
+        achievementTimer = setTimeout(() => {
+          xboxAchievement.classList.remove('show');
+        }, 5000);
+      }
+      
+      function hideXboxAchievement() {
+        if (xboxAchievement) {
+          xboxAchievement.classList.remove('show');
+        }
+        if (achievementTimer) {
+          clearTimeout(achievementTimer);
+          achievementTimer = null;
+        }
+      }
+      
+      function playSound(soundFile) {
+        return new Promise((resolve, reject) => {
+          const audio = new Audio(soundFile);
+          audio.onended = () => resolve();
+          audio.onerror = (e) => {
+            console.error(`❌ خطأ في تحميل الصوت ${soundFile}:`, e);
+            reject(e);
+          };
+          audio.play().catch(error => {
+            console.error(`⚠️ خطأ في تشغيل الصوت ${soundFile}:`, error);
+            reject(error);
+          });
+        });
+      }
+      
+      async function handleCharacterClick() {
+        if (isPlaying) return;
+        
+        clickCount++;
+        
+        const characterImg = document.getElementById('characterImg');
+        if (characterImg) {
+          characterImg.style.transform = 'scale(0.92)';
+          setTimeout(() => {
+            if (characterImg) characterImg.style.transform = '';
+          }, 150);
         }
         
-        async function handleCharacterClick() {
-            // منع النقر أثناء تشغيل الصوت
-            if (isPlaying) return;
-            
-            // زيادة عداد النقرات
-            clickCount++;
-            
-            // تأثير الضغط فقط
-            const characterImg = document.getElementById('characterImg');
-            characterImg.style.transform = 'scale(0.92)';
-            setTimeout(() => {
-                characterImg.style.transform = '';
-            }, 150);
-            
-            isPlaying = true;
-            
-            try {
-                if (clickCount === 1) {
-                    // الضغطة الأولى: sfx.mp3
-                    await playSound('sfx.mp3');
-                    
-                } else if (clickCount === 2) {
-                    // الضغطة الثانية: sfx1.mp3
-                    await playSound('sfx1.mp3');
-                    
-                } else if (clickCount >= 3) {
-                    // الضغطة الثالثة: sfx2.mp3 ثم إغلاق الموقع
-                    await playSound('sfx2.mp3');
-                    
-                    // إغلاق الموقع تلقائياً
-                    closeWebsite();
-                    
-                    isPlaying = false;
-                    return;
-                }
-            } catch (error) {
-                console.error('❌ فشل تشغيل الصوت:', error);
-            }
-            
+        isPlaying = true;
+        
+        try {
+          if (clickCount === 1) {
+            await playSound('sfx.mp3');
+          } else if (clickCount === 2) {
+            await playSound('sfx1.mp3');
+          } else if (clickCount >= 3) {
+            await playSound('sfx2.mp3');
+            // بدلاً من إغلاق الموقع: عرض إنجاز Xbox
+            showXboxAchievement();
+            // إعادة تعيين العداد للسماح بتجربة الإنجاز مرة أخرى لاحقاً
+            clickCount = 0;
             isPlaying = false;
+            return;
+          }
+        } catch (error) {
+          console.error('❌ فشل تشغيل الصوت:', error);
         }
         
-        function initCharacterSounds() {
-            const characterImg = document.getElementById('characterImg');
-            
-            if (characterImg) {
-                characterImg.addEventListener('click', handleCharacterClick);
-                console.log('✅ تم تفعيل نظام النقرات على الشخصية!');
-                console.log('   - نقرة 1 → sfx.mp3');
-                console.log('   - نقرة 2 → sfx1.mp3');
-                console.log('   - نقرة 3 → sfx2.mp3 + إغلاق تلقائي');
-            }
+        isPlaying = false;
+      }
+      
+      function initCharacterSounds() {
+        const characterImg = document.getElementById('characterImg');
+        if (characterImg) {
+          characterImg.addEventListener('click', handleCharacterClick);
+          console.log('✅ تم تفعيل نظام النقرات على الشخصية مع إنجاز Xbox!');
+          console.log('   - نقرة 1 → sfx.mp3');
+          console.log('   - نقرة 2 → sfx1.mp3');
+          console.log('   - نقرة 3 → sfx2.mp3 + إنجاز Xbox');
         }
+      }
 
-        // --- تهيئة كل شيء عند تحميل الصفحة ---
-        document.addEventListener('DOMContentLoaded', () => {
-            initTheme();
-            
-            const savedLang = localStorage.getItem('kobi_lang');
-            if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
-                updateLanguage(savedLang);
-            } else {
-                updateLanguage('ar');
-            }
-            
-            loadLatestVideo();
-            initCharacterSounds();
-            
-            document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
-            document.getElementById('langToggleBtn').addEventListener('click', () => {
-                const newLang = currentLang === 'ar' ? 'en' : 'ar';
-                updateLanguage(newLang);
-            });
+      // إخفاء الإنجاز عند النقر عليه (للمستخدم)
+      if (xboxAchievement) {
+        xboxAchievement.addEventListener('click', hideXboxAchievement);
+      }
+
+      // --- تهيئة كل شيء عند تحميل الصفحة ---
+      document.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        
+        const savedLang = localStorage.getItem('kobi_lang');
+        if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
+          updateLanguage(savedLang);
+        } else {
+          updateLanguage('ar');
+        }
+        
+        loadLatestVideo();
+        initCharacterSounds();
+        
+        document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
+        document.getElementById('langToggleBtn').addEventListener('click', () => {
+          const newLang = currentLang === 'ar' ? 'en' : 'ar';
+          updateLanguage(newLang);
+          // تحديث نصوص الإنجاز إذا كانت ظاهرة
+          const achievTitle = document.querySelector('[data-key="achieve_title"]');
+          const achievDesc = document.querySelector('[data-key="achieve_desc"]');
+          if (achievTitle) achievTitle.textContent = translations[newLang].achieve_title;
+          if (achievDesc) achievDesc.textContent = translations[newLang].achieve_desc;
         });
-    </script>
+      });
+    })();
+  </script>
 </body>
 </html>
